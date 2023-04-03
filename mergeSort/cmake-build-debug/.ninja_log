@@ -1,0 +1,5 @@
+# ninja log v5
+0	37	1680503355435824072	CMakeFiles/mergeSort.dir/main.c.o	fdbfc376a6266adb
+38	73	1680503355472741514	mergeSort	efdbcee730a80d18
+1	42	1680503437487381634	CMakeFiles/mergeSort.dir/main.c.o	fdbfc376a6266adb
+43	77	1680503437522564738	mergeSort	efdbcee730a80d18
