@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> // rand를 사용하기 위한 헤더파일
+#include <stdbool.h>
+#include <time.h>
 
 // Selection sort
 void SelectionSort(int arr[], int len) {
@@ -33,19 +35,37 @@ int main() {
 
     FILE *fp_input, *fp_s_output, *fp_s_match;
 
-    // input.txt 생성
-    int random;
-    fp_input = fopen("input.txt", "w");
-    // 난수 생성
+    // 난수 초기화
+    srand(time(NULL));
+
+    // 난수 생성 및 중복값 제거
+    int random[1000];
+    bool is_duplicate;
+
     for (int i = 0; i < 1000; i++) {
-        random = rand() % 1000;
-        fprintf(fp_input, "%d ", random); // txt 파일에 난수 입력
+        do {
+            random[i] = rand() % 1000;
+            is_duplicate = false;
+            for (int j = 0; j < i; j++) {
+                if (random[j] == random[i]) {
+                    is_duplicate = true;
+                    break;
+                }
+            }
+        } while (is_duplicate);
+    }
+
+    // input.txt 생성
+    fp_input = fopen("input.txt", "w");
+    for (int i = 0; i < 1000; i++) {
+        fprintf(fp_input, "%d ", random[i]); // txt 파일에 난수 입력
     }
     fclose(fp_input);
 
     // input.txt 읽기
     int arr[1000];
     fp_input = fopen("input.txt", "r");
+
     // input.txt 값 배열에 저장
     for (int i = 0; i < 1000; i++) {
         fscanf(fp_input, "%d", &arr[i]);
@@ -76,6 +96,4 @@ int main() {
         }
     }
     fclose(fp_s_match);
-
-    return 0;
 }
