@@ -48,7 +48,7 @@ build cmake_object_order_depends_target_mergeSort: phony || CMakeFiles/mergeSort
 
 build CMakeFiles/mergeSort.dir/main.c.o: C_COMPILER__mergeSort_Debug /Users/HY/CLionProjects/mergeSort/main.c || cmake_object_order_depends_target_mergeSort
   DEP_FILE = CMakeFiles/mergeSort.dir/main.c.o.d
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu90
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics -std=gnu90
   OBJECT_DIR = CMakeFiles/mergeSort.dir
   OBJECT_FILE_DIR = CMakeFiles/mergeSort.dir
   TARGET_COMPILE_PDB = CMakeFiles/mergeSort.dir/
@@ -63,7 +63,7 @@ build CMakeFiles/mergeSort.dir/main.c.o: C_COMPILER__mergeSort_Debug /Users/HY/C
 # Link the executable mergeSort
 
 build mergeSort: C_EXECUTABLE_LINKER__mergeSort_Debug CMakeFiles/mergeSort.dir/main.c.o
-  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/mergeSort.dir
   POST_BUILD = :
   PRE_LINK = :
