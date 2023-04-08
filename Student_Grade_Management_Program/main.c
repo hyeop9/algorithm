@@ -16,13 +16,15 @@ typedef struct DListNode {
     struct DListNode *rlink;
 } DListNode;
 
-/* 초기화 */ // 처음에 노드를 초기화
+/* 초기화 */
+// 처음에 노드를 초기화
 void init(DListNode *phead) {
     phead->llink = phead;
     phead->rlink = phead;
 }
 
-/* Insert_node */ // 새로운 노드를 받아 before 노드 다음에 삽입
+/* Insert_node */
+// 새로운 노드를 받아 before 노드 다음에 삽입
 DListNode *dinsert_node(DListNode *before, DListNode *new_node) {
     // new_node의 링크 필드 먼저 생성
     new_node->llink = before;
@@ -30,42 +32,47 @@ DListNode *dinsert_node(DListNode *before, DListNode *new_node) {
 
     before->rlink->rlink = new_node; // aaa의 llink에는 new_node 주소를 저장
     before->rlink = new_node; // before의 rlink에는 new_node 주소를 저장
+
+    return new_node;
 }
 
-/* Search */ // 학생 번호에 입력 받아 노드 탐색 후 출력
+/* Search */
+// 학생 번호에 입력 받아 노드 탐색 후 출력
 void search(DListNode *head, element data) {
     DListNode *p;
 
     for (p = head->rlink; p != head; p = p->rlink) {
         if (p->data.num == data.num) {
-            printf("%6d %10s %6d %6d %6d %6d\n",
-                   p->data.num, p->data.name, p->data.kor, p->data.math, p->data.eng, p->data.com);
+            printf("%6d %-*s %6d %6d %6d %6d\n",
+                   p->data.num, sizeof(p->data.name), p->data.kor, p->data.math, p->data.eng, p->data.com);
             return;
         }
     }
     printf("%d 번 학생의 번호 검색 실패\n\n", data.num);
 }
 
-/* Sort */ // 이중 연결리스트를 정렬
+/* Sort */
+// 이중 연결리스트를 정렬
 void sort_dinsert(DListNode *head) {
     DListNode *p, *q;
-    element tmp;
+    int tmp_num;
 
     // 오른쪽으로 이동하여 작은 값 찾으며 정렬
     for (p = head->rlink; p != head; p = p->rlink) {
         for (q = p->rlink; q != head; q = q->rlink) {
+            // q의 total이 p의 total 보다 크면
             if (q->data.num < p->data.num) {
-                // q의 total이 p의 total 보다 크면
                 // q와 p의 swap
-                tmp = p->data;
-                p->data = q->data; // q와 p의 자리 바꿔줌
-                q->data = tmp;
+                tmp_num = p->data.num;
+                p->data.num = q->data.num; // q와 p의 자리 바꿔줌
+                q->data.num = tmp_num;
             }
         }
     }
 }
 
-/* Display */ // 연결 리스트 전체 출력
+/* Display */
+// 연결 리스트 전체 출력
 void display(DListNode *phead) {
     printf("====================================================\n");
     printf("|번 호|  이 름  |  언어  |  수리  |  영어  |  컴퓨터  |\n");
@@ -78,14 +85,17 @@ void display(DListNode *phead) {
     printf("====================================================\n");
 }
 
-/* Free_node */ // 동적 할당된 메모리 반환
+/* Free_node */
+// 동적 할당된 메모리 반환
 void free_node(DListNode *phead) {
     DListNode *p = phead->rlink, *next;
     while (p != phead) {
-        next = p;
+        next = p->rlink;
         free(p);
-        p = p->rlink;
+        p = next;
     }
+    phead->llink = phead;
+    phead->rlink = phead;
 };
 
 int main() {
