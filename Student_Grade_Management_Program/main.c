@@ -43,8 +43,8 @@ void search(DListNode *head, element data) {
 
     for (p = head->rlink; p != head; p = p->rlink) {
         if (p->data.num == data.num) {
-            printf("%6d %-*s %6d %6d %6d %6d\n",
-                   p->data.num, sizeof(p->data.name), p->data.kor, p->data.math, p->data.eng, p->data.com);
+            printf("%6d %10s %6d %6d %6d %6d\n",
+                   p->data.num, p->data.name, p->data.kor, p->data.math, p->data.eng, p->data.com);
             return;
         }
     }
@@ -55,17 +55,17 @@ void search(DListNode *head, element data) {
 // 이중 연결리스트를 정렬
 void sort_dinsert(DListNode *head) {
     DListNode *p, *q;
-    int tmp_num;
+    element tmp;
 
     // 오른쪽으로 이동하여 작은 값 찾으며 정렬
-    for (p = head->rlink; p != head; p = p->rlink) {
+    for (p = head->rlink; p->rlink != head; p = p->rlink) {
         for (q = p->rlink; q != head; q = q->rlink) {
             // q의 total이 p의 total 보다 크면
             if (q->data.num < p->data.num) {
                 // q와 p의 swap
-                tmp_num = p->data.num;
-                p->data.num = q->data.num; // q와 p의 자리 바꿔줌
-                q->data.num = tmp_num;
+                tmp = p->data;
+                p->data = q->data; // q와 p의 자리 바꿔줌
+                q->data = tmp;
             }
         }
     }
@@ -90,12 +90,15 @@ void display(DListNode *phead) {
 void free_node(DListNode *phead) {
     DListNode *p = phead->rlink, *next;
     while (p != phead) {
-        next = p->rlink;
+        next = p;
         free(p);
-        p = next;
+        p = p->rlink;
     }
-    phead->llink = phead;
-    phead->rlink = phead;
+};
+
+// 특정 학생 삭제하는 함수
+void delete() {
+
 };
 
 int main() {
@@ -143,14 +146,15 @@ int main() {
 
                 printf("추가할 학생 번호 : "); scanf("%d", &dat.num);
                 printf("이름 : "); scanf("%s", dat.name);
-                printf("국어 : "); scanf("%s", &dat.kor);
-                printf("수학 : "); scanf("%s", &dat.math);
-                printf("영어 : "); scanf("%s", &dat.eng);
-                printf("컴퓨터 : "); scanf("%s", &dat.com);
+                printf("국어 : "); scanf("%d", &dat.kor);
+                printf("수학 : "); scanf("%d", &dat.math);
+                printf("영어 : "); scanf("%d", &dat.eng);
+                printf("컴퓨터 : "); scanf("%d", &dat.com);
 
                 tmp->data = dat; // 새로운 노드의 데이터 필드에 입력 받은 dat 구조체를 대입
                 dinsert_node(head, tmp); // 노드 맨 앞에 삽입
-                break;
+                // break;
+                continue;
 
             case 2: // 학생 번호 입력 받아 리스트에서 탐색 후 출력
                 printf("검색할 학생 번호 : ");
