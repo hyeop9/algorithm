@@ -12,8 +12,8 @@ typedef struct student {
 // 이중 연결리스트의 자기참조구조체 구현
 typedef struct DListNode {
     struct DListNode *llink;
-    element data;
     struct DListNode *rlink;
+    element data;
 } DListNode;
 
 /* 초기화 */
@@ -29,11 +29,9 @@ DListNode *dinsert_node(DListNode *before, DListNode *new_node) {
     // new_node의 링크 필드 먼저 생성
     new_node->llink = before;
     new_node->rlink = before->rlink;
-
-    before->rlink->rlink = new_node; // aaa의 llink에는 new_node 주소를 저장
+    before->rlink->llink = new_node; // aaa의 llink에는 new_node 주소를 저장
     before->rlink = new_node; // before의 rlink에는 new_node 주소를 저장
-
-    return new_node;
+    // return new_node;
 }
 
 /* Search */
@@ -51,20 +49,31 @@ void search(DListNode *head, element data) {
     printf("%d 번 학생의 번호 검색 실패\n\n", data.num);
 }
 
+// 특정 학생 삭제하는 함수
+void delete(DListNode *phead, element data) {
+    DListNode *p;
+
+    for (p = phead->rlink; p != phead; p = p->rlink) {
+        if (p == phead) return;
+        p->llink->rlink = p->rlink;
+        p->rlink->llink = p->llink;
+        free(p);
+        return;
+    }
+    printf("%d 번 학생의 번호 검색 실패\n\n", data.num);
+}
+
 /* Sort */
 // 이중 연결리스트를 정렬
 void sort_dinsert(DListNode *head) {
     DListNode *p, *q;
     element tmp;
-
     // 오른쪽으로 이동하여 작은 값 찾으며 정렬
     for (p = head->rlink; p->rlink != head; p = p->rlink) {
         for (q = p->rlink; q != head; q = q->rlink) {
-            // q의 total이 p의 total 보다 크면
             if (q->data.num < p->data.num) {
-                // q와 p의 swap
                 tmp = p->data;
-                p->data = q->data; // q와 p의 자리 바꿔줌
+                p->data = q->data;
                 q->data = tmp;
             }
         }
@@ -79,7 +88,7 @@ void display(DListNode *phead) {
     printf("====================================================\n");
 
     for (DListNode *p = phead->rlink; p != phead; p = p->rlink) {
-        printf("|%3d|  %5s  |  %4d  |  %4d  |  %4d  |  %5d  |\n",
+        printf("|%3d | %5s  | %4d  | %4d  | %4d  | %5d  |\n",
                p->data.num, p->data.name, p->data.kor, p->data.math, p->data.eng, p->data.com);
     }
     printf("====================================================\n");
@@ -94,12 +103,7 @@ void free_node(DListNode *phead) {
         free(p);
         p = p->rlink;
     }
-};
-
-// 특정 학생 삭제하는 함수
-void delete() {
-
-};
+}
 
 int main() {
     FILE *fp;
@@ -132,7 +136,7 @@ int main() {
 
     // 메뉴 선택하여 조건에 맞게 함수 호출
     while (1) {
-        printf("\n종료(0) 학생 데이터 입력(1) 학생 검색(2) 목록 보기(3)\n");
+        printf("\n종료(0) 학생 데이터 입력(1) 학생 검색(2) 학생 삭제(3) 목록 보기(4)\n");
         printf("메뉴 입력 : ");
         scanf("%d", &flag);
 
@@ -144,17 +148,22 @@ int main() {
             case 1: // 데이터 입력 받아 새로운 노드 추가 후 삽입
                 tmp = (DListNode *) malloc(sizeof(DListNode));
 
-                printf("추가할 학생 번호 : "); scanf("%d", &dat.num);
-                printf("이름 : "); scanf("%s", dat.name);
-                printf("국어 : "); scanf("%d", &dat.kor);
-                printf("수학 : "); scanf("%d", &dat.math);
-                printf("영어 : "); scanf("%d", &dat.eng);
-                printf("컴퓨터 : "); scanf("%d", &dat.com);
+                printf("추가할 학생 번호 : ");
+                scanf("%d", &dat.num);
+                printf("이름 : ");
+                scanf("%s", dat.name);
+                printf("국어 : ");
+                scanf("%d", &dat.kor);
+                printf("수학 : ");
+                scanf("%d", &dat.math);
+                printf("영어 : ");
+                scanf("%d", &dat.eng);
+                printf("컴퓨터 : ");
+                scanf("%d", &dat.com);
 
                 tmp->data = dat; // 새로운 노드의 데이터 필드에 입력 받은 dat 구조체를 대입
                 dinsert_node(head, tmp); // 노드 맨 앞에 삽입
-                // break;
-                continue;
+                break;
 
             case 2: // 학생 번호 입력 받아 리스트에서 탐색 후 출력
                 printf("검색할 학생 번호 : ");
@@ -162,7 +171,13 @@ int main() {
                 search(head, dat); // 학생 번호 찾아 출력
                 break;
 
-            case 3: // 리스트 정렬하여 출력
+            case 3: // 학생 번호 입력 받아 리스트에서 탐색 후 삭제
+                printf("삭제할 학생 번호 : ");
+                scanf("%d", &dat.num);
+                delete(head, dat);
+                break;
+
+            case 4: // 리스트 정렬하여 출력
                 printf("\n<정렬된 목록 보기>\n\n");
                 sort_dinsert(head); // 목록을 학생 번호 순대로 정렬
                 display(head); // 출력
@@ -171,7 +186,7 @@ int main() {
             default:
                 break;
         }
-        free_node(head);
-        fclose(fp);
     }
+    free_node(head);
+    fclose(fp);
 }
