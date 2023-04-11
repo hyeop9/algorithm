@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* 구조체 선언 */
 // 학생의 데이터를 담는 구조체를 새로운 타입 element로 정의
@@ -49,18 +50,21 @@ void search(DListNode *head, element data) {
     printf("%d 번 학생의 번호 검색 실패\n\n", data.num);
 }
 
+/* Delete */
 // 특정 학생 삭제하는 함수
-void delete(DListNode *phead, element data) {
+void delete(DListNode *head, char *name) {
     DListNode *p;
 
-    for (p = phead->rlink; p != phead; p = p->rlink) {
-        if (p == phead) return;
-        p->llink->rlink = p->rlink;
-        p->rlink->llink = p->llink;
-        free(p);
-        return;
+    for (p = head->rlink; p != head; p = p->rlink) {
+        if (strcmp(p->data.name, name) == 0) {
+            if (p == head) return;
+            p->llink->rlink = p->rlink;
+            p->rlink->llink = p->llink;
+            free(p);
+            return;
+        }
     }
-    printf("%d 번 학생의 번호 검색 실패\n\n", data.num);
+    printf("%s 학생 이름 검색 실패\n\n", name);
 }
 
 /* Sort */
@@ -111,6 +115,7 @@ int main() {
     DListNode *tmp; // 임시로 데이터를 입력 받는 노드
     element dat; // 데이터 임시로 입력 받는 구조체
     int flag; // 입력 받는 메뉴
+    char name[20];
 
     // 연결 리스트 초기화
     init(head);
@@ -172,9 +177,9 @@ int main() {
                 break;
 
             case 3: // 학생 번호 입력 받아 리스트에서 탐색 후 삭제
-                printf("삭제할 학생 번호 : ");
-                scanf("%d", &dat.num);
-                delete(head, dat);
+                printf("삭제할 학생 이름 : ");
+                scanf("%s", name);
+                delete(head, name);
                 break;
 
             case 4: // 리스트 정렬하여 출력
