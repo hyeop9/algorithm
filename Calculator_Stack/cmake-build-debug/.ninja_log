@@ -1,0 +1,16 @@
+# ninja log v5
+0	99	1681213010139834578	CMakeFiles/Calculator_Stack.dir/main.c.o	5cdd0eb926b4f593
+0	4	0	clean	3c8e6cc385ee00ba
+1	29	1681213052620593044	CMakeFiles/Calculator_Stack.dir/main.c.o	5cdd0eb926b4f593
+0	5	0	clean	3c8e6cc385ee00ba
+0	32	1681213117627422312	CMakeFiles/Calculator_Stack.dir/main.c.o	5cdd0eb926b4f593
+0	4	0	clean	3c8e6cc385ee00ba
+0	23	0	clean	3c8e6cc385ee00ba
+0	36	1681213443973264499	CMakeFiles/Calculator_Stack.dir/main.c.o	5cdd0eb926b4f593
+36	71	1681213444008395330	Calculator_Stack	bfd36a8df989b5b6
+0	48	1681213720052416492	CMakeFiles/Calculator_Stack.dir/main.c.o	5cdd0eb926b4f593
+48	92	1681213720101431884	Calculator_Stack	bfd36a8df989b5b6
+1	39	1681213811588322963	CMakeFiles/Calculator_Stack.dir/main.c.o	5cdd0eb926b4f593
+39	73	1681213811622367045	Calculator_Stack	bfd36a8df989b5b6
+1	30	1681213945008105819	CMakeFiles/Calculator_Stack.dir/main.c.o	5cdd0eb926b4f593
+30	71	1681213945049775527	Calculator_Stack	bfd36a8df989b5b6
