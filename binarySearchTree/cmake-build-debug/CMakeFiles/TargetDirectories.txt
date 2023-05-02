@@ -1,0 +1,3 @@
+/Users/HY/CLionProjects/binarySearchTree/cmake-build-debug/CMakeFiles/binarySearchTree.dir
+/Users/HY/CLionProjects/binarySearchTree/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/HY/CLionProjects/binarySearchTree/cmake-build-debug/CMakeFiles/rebuild_cache.dir
