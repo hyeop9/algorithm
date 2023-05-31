@@ -1,0 +1,3 @@
+/Users/HY/CLionProjects/fibonacci/cmake-build-debug/CMakeFiles/fibonacci.dir
+/Users/HY/CLionProjects/fibonacci/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/HY/CLionProjects/fibonacci/cmake-build-debug/CMakeFiles/rebuild_cache.dir
