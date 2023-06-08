@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 
+// 재귀 함수
 unsigned long long recursiveFibonacci(int n)
 {
     if (n <= 1)
@@ -9,6 +10,7 @@ unsigned long long recursiveFibonacci(int n)
         return recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2);
 }
 
+// 동적 프로그래밍
 unsigned long long dynamicFibonacci(int n)
 {
     unsigned long long fib[n + 1];
